@@ -1,61 +1,56 @@
-'use client'
-
 import { useState } from 'react'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useNavigate } from 'react-router-dom'
 import { BarChart3 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
 
 export default function LoginPage() {
-  const router = useRouter()
+  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = async (e) => {
     e.preventDefault()
     setIsLoading(true)
     
     // Simulate API call
     setTimeout(() => {
       console.log('Login attempted with:', { email, password })
-      router.push('/?authenticated=true')
+      navigate('/')
       setIsLoading(false)
     }, 500)
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/5 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="flex justify-center mb-8">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
-              <BarChart3 className="w-6 h-6 text-primary-foreground" />
+          <a href="/" className="flex items-center gap-2">
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
+              <BarChart3 className="w-6 h-6 text-white" />
             </div>
-            <span className="text-2xl font-bold text-primary">FMIS</span>
-          </Link>
+            <span className="text-2xl font-bold text-blue-600">FMIS</span>
+          </a>
         </div>
 
-        <Card>
-          <CardHeader className="space-y-2">
-            <CardTitle className="text-2xl">Login</CardTitle>
-            <CardDescription>Access your Barangay Nazareth Financial Management System</CardDescription>
-          </CardHeader>
-          <CardContent>
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <div className="space-y-2 mb-6">
+            <h2 className="text-2xl font-bold">Login</h2>
+            <p className="text-sm text-gray-600">Access your Barangay Nazareth Financial Management System</p>
+          </div>
+          <div>
             <form onSubmit={handleLogin} className="space-y-4">
               <div className="space-y-2">
                 <label htmlFor="email" className="text-sm font-medium">
                   Email Address
                 </label>
-                <Input
+                <input
                   id="email"
                   type="email"
                   placeholder="your@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -63,37 +58,38 @@ export default function LoginPage() {
                 <label htmlFor="password" className="text-sm font-medium">
                   Password
                 </label>
-                <Input
+                <input
                   id="password"
                   type="password"
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
-              <Button type="submit" className="w-full" disabled={isLoading}>
+              <button type="submit" className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-400 font-medium" disabled={isLoading}>
                 {isLoading ? 'Logging in...' : 'Login'}
-              </Button>
+              </button>
             </form>
 
             <div className="mt-6 border-t pt-4">
-              <p className="text-sm text-muted-foreground text-center">
+              <p className="text-sm text-gray-600 text-center">
                 Don't have an account?{' '}
-                <Link href="/signup" className="text-primary font-medium hover:underline">
+                <a href="/signup" className="text-blue-600 font-medium hover:underline">
                   Sign Up
-                </Link>
+                </a>
               </p>
             </div>
 
-            <div className="mt-4 p-4 bg-secondary/10 rounded-lg">
-              <p className="text-xs text-muted-foreground">
+            <div className="mt-4 p-4 bg-gray-100 rounded-lg">
+              <p className="text-xs text-gray-600">
                 <strong>Demo Credentials:</strong> Use any email and password to proceed
               </p>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     </div>
   )
