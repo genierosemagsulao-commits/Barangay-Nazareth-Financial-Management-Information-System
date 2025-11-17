@@ -133,3 +133,36 @@ MIT
 ---
 
 **Ready to code?** Run `npm run dev` and start building! 🎉
+
+## 🚀 Deploy to Vercel (Static Frontend)
+
+You can deploy this frontend to Vercel in two ways: via the Vercel CLI or by connecting the GitHub repository to Vercel.
+
+### Option A — Vercel CLI (quick)
+1. Install the Vercel CLI:
+```bash
+npm i -g vercel
+```
+2. Login to Vercel:
+```bash
+vercel login
+```
+3. From the project root run:
+```bash
+vercel --prod
+```
+- When prompted, set the build command to `npm run build` and output directory to `dist`.
+- After deployment, Vercel will return your production URL.
+
+### Option B — GitHub Integration (recommended)
+1. Go to https://vercel.com and sign in.
+2. Click **Import Project** → **Import Git Repository** and choose this repository.
+3. Set **Framework Preset** to `Vite` or `Other`.
+4. Set **Build Command** to `npm run build` and **Output Directory** to `dist`.
+5. Click **Deploy**.
+
+Vercel will build and deploy automatically on every push to `main`.
+
+## 📄 Final Notes
+
+**Ready to deploy?** Use the CLI steps above or connect the repo to Vercel for automatic builds.
