@@ -1,97 +1,123 @@
-import { useNavigate } from 'react-router-dom'
-import DashboardLayout from '../components/DashboardLayout'
+'use client'
+
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
+import { ChevronLeft } from 'lucide-react'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
+
+const expenses = [
+  {
+    date: '2025-11-05',
+    description: 'Electricity Bill - Barangay Hall',
+    category: 'Utilities',
+    amount: 5500,
+    status: 'Approved',
+  },
+  {
+    date: '2025-10-15',
+    description: 'Office Supplies for Community Center',
+    category: 'Office Supplies',
+    amount: 1200,
+    status: 'Approved',
+  },
+  {
+    date: '2025-05-25',
+    description: 'Salaries - Barangay Health Workers',
+    category: 'Salaries',
+    amount: 45000,
+    status: 'Approved',
+  },
+  {
+    date: '2025-10-09',
+    description: 'Repair of Public Streetlights',
+    category: 'Infrastructure',
+    amount: 8750,
+    status: 'Approved',
+  },
+  {
+    date: '2025-08-20',
+    description: 'Community Outreach Program Materials',
+    category: 'Community Projects',
+    amount: 2300,
+    status: 'Pending',
+  },
+  {
+    date: '2025-03-10',
+    description: 'Water Bill - Multi-Purpose Hall',
+    category: 'Utilities',
+    amount: 1800,
+    status: 'Pending',
+  },
+]
 
 export default function ExpensesPage() {
-  const expenses = [
-    {
-      id: 1,
-      date: '2024-11-15',
-      category: 'Infrastructure',
-      description: 'Road repair project',
-      amount: 45000,
-      status: 'Approved',
-    },
-    {
-      id: 2,
-      date: '2024-11-10',
-      category: 'Utilities',
-      description: 'Barangay office electricity',
-      amount: 5000,
-      status: 'Approved',
-    },
-    {
-      id: 3,
-      date: '2024-11-05',
-      category: 'Personnel',
-      description: 'Staff salaries',
-      amount: 30000,
-      status: 'Pending',
-    },
-  ]
-
   return (
-    <DashboardLayout>
-      <div className="space-y-6">
-        <div className="flex justify-between items-center">
-          <h1 className="text-3xl font-bold text-gray-900">Expenses Management</h1>
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-            Add Expense
-          </button>
+    <div className="min-h-screen bg-background">
+      <nav className="border-b border-border bg-card">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <Link href="/">
+            <Button variant="ghost" size="sm" className="gap-2">
+              <ChevronLeft className="w-4 h-4" />
+              Back to Dashboard
+            </Button>
+          </Link>
+        </div>
+      </nav>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold text-foreground mb-2">Expense Management</h1>
+          <p className="text-muted-foreground">Track and categorize all barangay expenditures</p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          <div className="bg-white p-6 rounded-lg shadow-sm">
-            <p className="text-sm text-gray-600 mb-2">Total Expenses</p>
-            <p className="text-3xl font-bold text-red-600">₱80,000</p>
-          </div>
-          <div className="bg-white p-6 rounded-lg shadow-sm">
-            <p className="text-sm text-gray-600 mb-2">This Month</p>
-            <p className="text-3xl font-bold text-red-600">₱80,000</p>
-          </div>
-          <div className="bg-white p-6 rounded-lg shadow-sm">
-            <p className="text-sm text-gray-600 mb-2">Records</p>
-            <p className="text-3xl font-bold text-purple-600">{expenses.length}</p>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-lg shadow-sm">
-          <div className="p-6 border-b">
-            <h2 className="text-xl font-semibold text-gray-900">Expense Records</h2>
-          </div>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-gray-50 border-b">
-                <tr>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Date</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Category</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Description</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Amount</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {expenses.map((expense) => (
-                  <tr key={expense.id} className="border-b hover:bg-gray-50">
-                    <td className="px-6 py-3 text-sm text-gray-900">{expense.date}</td>
-                    <td className="px-6 py-3 text-sm text-gray-900">{expense.category}</td>
-                    <td className="px-6 py-3 text-sm text-gray-600">{expense.description}</td>
-                    <td className="px-6 py-3 text-sm font-semibold text-gray-900">₱{expense.amount.toLocaleString()}</td>
-                    <td className="px-6 py-3 text-sm">
-                      <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                        expense.status === 'Approved' 
-                          ? 'bg-green-100 text-green-800' 
-                          : 'bg-yellow-100 text-yellow-800'
-                      }`}>
-                        {expense.status}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <Card>
+          <CardHeader>
+            <CardTitle>All Expenses</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Date</TableHead>
+                    <TableHead>Description</TableHead>
+                    <TableHead>Category</TableHead>
+                    <TableHead>Amount</TableHead>
+                    <TableHead>Status</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {expenses.map((expense, index) => (
+                    <TableRow key={index}>
+                      <TableCell>{expense.date}</TableCell>
+                      <TableCell>{expense.description}</TableCell>
+                      <TableCell>{expense.category}</TableCell>
+                      <TableCell>₱{expense.amount.toLocaleString()}</TableCell>
+                      <TableCell>
+                        <span className={`text-xs font-semibold px-2 py-1 rounded-full ${
+                          expense.status === 'Approved'
+                            ? 'bg-green-100 text-green-800'
+                            : 'bg-yellow-100 text-yellow-800'
+                        }`}>
+                          {expense.status}
+                        </span>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          </CardContent>
+        </Card>
       </div>
-    </DashboardLayout>
+    </div>
   )
 }

@@ -1,52 +1,96 @@
-import DashboardLayout from '../components/DashboardLayout'
+'use client'
+
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Progress } from '@/components/ui/progress'
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
+import { ChevronLeft } from 'lucide-react'
+
+const budgets = [
+  {
+    name: 'Monthly Operations',
+    allocated: 150000,
+    spent: 120500,
+    remaining: 29500,
+  },
+  {
+    name: 'Community Outreach Program',
+    allocated: 80000,
+    spent: 75000,
+    remaining: 5000,
+  },
+  {
+    name: 'Road Infrastructure Project',
+    allocated: 250000,
+    spent: 180000,
+    remaining: 70000,
+  },
+  {
+    name: 'Emergency Response Fund',
+    allocated: 50000,
+    spent: 15500,
+    remaining: 34500,
+  },
+  {
+    name: 'Youth Development Programs',
+    allocated: 30000,
+    spent: 25500,
+    remaining: 4500,
+  },
+  {
+    name: 'Barangay Health Services',
+    allocated: 100000,
+    spent: 90000,
+    remaining: 10000,
+  },
+]
 
 export default function BudgetPage() {
-  const budgets = [
-    { category: 'Infrastructure', allocated: 200000, used: 145000, remaining: 55000 },
-    { category: 'Healthcare', allocated: 100000, used: 75000, remaining: 25000 },
-    { category: 'Education', allocated: 150000, used: 120000, remaining: 30000 },
-    { category: 'Utilities', allocated: 50000, used: 35000, remaining: 15000 },
-  ]
-
   return (
-    <DashboardLayout>
-      <div className="space-y-6">
-        <h1 className="text-3xl font-bold text-gray-900">Budget Management</h1>
+    <div className="min-h-screen bg-background">
+      <nav className="border-b border-border bg-card">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <Link href="/">
+            <Button variant="ghost" size="sm" className="gap-2">
+              <ChevronLeft className="w-4 h-4" />
+              Back to Dashboard
+            </Button>
+          </Link>
+        </div>
+      </nav>
 
-        <div className="grid md:grid-cols-2 gap-6">
-          {budgets.map((budget) => {
-            const percentage = (budget.used / budget.allocated) * 100
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold text-foreground mb-2">Budget Management</h1>
+          <p className="text-muted-foreground">Monitor allocated budgets and actual spending across programs</p>
+        </div>
+
+        <div className="grid gap-6">
+          {budgets.map((budget, index) => {
+            const percentage = (budget.spent / budget.allocated) * 100
             return (
-              <div key={budget.category} className="bg-white p-6 rounded-lg shadow-sm">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">{budget.category}</h3>
-                <div className="space-y-4">
-                  <div>
-                    <div className="flex justify-between text-sm mb-2">
-                      <span className="text-gray-600">Allocated</span>
-                      <span className="font-semibold">₱{budget.allocated.toLocaleString()}</span>
+              <Card key={index}>
+                <CardHeader>
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <CardTitle>{budget.name}</CardTitle>
+                      <CardDescription>
+                        Allocated: ₱{budget.allocated.toLocaleString()} | Spent: ₱{budget.spent.toLocaleString()} | Remaining: ₱{budget.remaining.toLocaleString()}
+                      </CardDescription>
                     </div>
-                    <div className="flex justify-between text-sm mb-2">
-                      <span className="text-gray-600">Used</span>
-                      <span className="font-semibold">₱{budget.used.toLocaleString()}</span>
-                    </div>
-                    <div className="flex justify-between text-sm mb-4">
-                      <span className="text-gray-600">Remaining</span>
-                      <span className="font-semibold text-green-600">₱{budget.remaining.toLocaleString()}</span>
-                    </div>
+                    <span className="text-sm font-semibold bg-primary/10 text-primary px-3 py-1 rounded-full">
+                      {percentage.toFixed(1)}%
+                    </span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-3">
-                    <div
-                      className="bg-blue-600 h-3 rounded-full"
-                      style={{ width: `${percentage}%` }}
-                    ></div>
-                  </div>
-                  <p className="text-sm text-gray-600 text-center">{Math.round(percentage)}% used</p>
-                </div>
-              </div>
+                </CardHeader>
+                <CardContent>
+                  <Progress value={percentage} className="h-2" />
+                </CardContent>
+              </Card>
             )
           })}
         </div>
       </div>
-    </DashboardLayout>
+    </div>
   )
 }

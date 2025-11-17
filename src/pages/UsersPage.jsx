@@ -1,63 +1,130 @@
-import DashboardLayout from '../components/DashboardLayout'
+'use client'
+
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
+import { ChevronLeft } from 'lucide-react'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
+
+const users = [
+  {
+    name: 'Rosario Jacinto',
+    email: 'rosariojacinto@gmail.com',
+    role: 'Admin',
+    status: 'Active',
+    lastActivity: '2024-07-28 10:30 AM',
+  },
+  {
+    name: 'Lyka Isidro',
+    email: 'lykaisidro@gmail.com',
+    role: 'Treasurer',
+    status: 'Active',
+    lastActivity: '2024-07-28 10:30 AM',
+  },
+  {
+    name: 'Domingo Samsona',
+    email: 'dominggosamsona@gmail.com',
+    role: 'Admin',
+    status: 'Active',
+    lastActivity: '2024-07-28 10:30 AM',
+  },
+  {
+    name: 'Dante Esposo',
+    email: 'dante.esposo@gmail.com',
+    role: 'Viewer',
+    status: 'Active',
+    lastActivity: '2024-07-28 10:30 AM',
+  },
+  {
+    name: 'Nestor Vicente',
+    email: 'nestorvicente@gmail.com',
+    role: 'Admin',
+    status: 'Active',
+    lastActivity: '2024-07-28 10:30 AM',
+  },
+  {
+    name: 'Roalinda Ramos',
+    email: 'roalindarmos@gmail.com',
+    role: 'Admin',
+    status: 'Active',
+    lastActivity: '2024-07-28 10:30 AM',
+  },
+  {
+    name: 'Luis Jaoud',
+    email: 'luisjaoud@gmail.com',
+    role: 'Admin',
+    status: 'Active',
+    lastActivity: '2024-07-28 10:30 AM',
+  },
+]
 
 export default function UsersPage() {
-  const users = [
-    { id: 1, name: 'Juan Dela Cruz', email: 'juan@barangay.gov', role: 'Admin', status: 'Active' },
-    { id: 2, name: 'Maria Santos', email: 'maria@barangay.gov', role: 'Officer', status: 'Active' },
-    { id: 3, name: 'Pedro Garcia', email: 'pedro@barangay.gov', role: 'Viewer', status: 'Active' },
-    { id: 4, name: 'Rosa Reyes', email: 'rosa@barangay.gov', role: 'Officer', status: 'Inactive' },
-  ]
-
   return (
-    <DashboardLayout>
-      <div className="space-y-6">
-        <div className="flex justify-between items-center">
-          <h1 className="text-3xl font-bold text-gray-900">User Management</h1>
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-            Add User
-          </button>
+    <div className="min-h-screen bg-background">
+      <nav className="border-b border-border bg-card">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <Link href="/">
+            <Button variant="ghost" size="sm" className="gap-2">
+              <ChevronLeft className="w-4 h-4" />
+              Back to Dashboard
+            </Button>
+          </Link>
+        </div>
+      </nav>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold text-foreground mb-2">User Management</h1>
+          <p className="text-muted-foreground">Manage user accounts, assign roles, and track activity</p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-sm">
-          <div className="p-6 border-b">
-            <h2 className="text-xl font-semibold text-gray-900">System Users</h2>
-          </div>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-gray-50 border-b">
-                <tr>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Name</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Email</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Role</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Status</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {users.map((user) => (
-                  <tr key={user.id} className="border-b hover:bg-gray-50">
-                    <td className="px-6 py-3 text-sm text-gray-900">{user.name}</td>
-                    <td className="px-6 py-3 text-sm text-gray-600">{user.email}</td>
-                    <td className="px-6 py-3 text-sm text-gray-900">{user.role}</td>
-                    <td className="px-6 py-3 text-sm">
-                      <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                        user.status === 'Active' 
-                          ? 'bg-green-100 text-green-800' 
-                          : 'bg-gray-100 text-gray-800'
-                      }`}>
-                        {user.status}
-                      </span>
-                    </td>
-                    <td className="px-6 py-3 text-sm">
-                      <button className="text-blue-600 hover:text-blue-800 font-semibold">Edit</button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <Card>
+          <CardHeader>
+            <CardTitle>User Accounts</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Name</TableHead>
+                    <TableHead>Email</TableHead>
+                    <TableHead>Role</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Last Activity</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {users.map((user, index) => (
+                    <TableRow key={index}>
+                      <TableCell>{user.name}</TableCell>
+                      <TableCell>{user.email}</TableCell>
+                      <TableCell>
+                        <span className="text-xs font-semibold px-2 py-1 rounded-full bg-primary/10 text-primary">
+                          {user.role}
+                        </span>
+                      </TableCell>
+                      <TableCell>
+                        <span className="text-xs font-semibold px-2 py-1 rounded-full bg-green-100 text-green-800">
+                          {user.status}
+                        </span>
+                      </TableCell>
+                      <TableCell>{user.lastActivity}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          </CardContent>
+        </Card>
       </div>
-    </DashboardLayout>
+    </div>
   )
 }
